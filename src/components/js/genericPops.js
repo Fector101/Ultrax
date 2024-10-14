@@ -6,16 +6,16 @@ import React from "react"
  *  Genric CSS in packets.css file
  * @returns pop screen close btn
  */
-export function ClosePopScreenBtn({setVisiblity,myCloseFun}){
+export function ClosePopScreenBtn({myCloseFun}){
 
     //  <div class='coverx'>
     //    <div class='content-box'>
     //       <ClosePopScreenBtn setVisiblity={setVisiblity__}  />
     //    </div>
     //  </div>
-    const unique_lil_mannequin = React.useRef(nanoid())
+    const unique_id = React.useRef(nanoid())
     function close(){
-        if(myCloseFun())setVisiblity(false)
+        myCloseFun()
     }
     React.useEffect(function(){
         function closeCoverScreen(e){
@@ -24,7 +24,7 @@ export function ClosePopScreenBtn({setVisiblity,myCloseFun}){
             }
         }
         document.querySelector('body').addEventListener('keyup',closeCoverScreen)
-        const btn = document.getElementById(unique_lil_mannequin.current)
+        const btn = document.getElementById(unique_id.current)
         btn.addEventListener('click',function(){
             const cover_screen = btn.closest('.coverx')
             cover_screen?close():console.log('Take a look at ClosePopScreenBtn Docs in components/css/ClosePopScreenBtn.js file')
@@ -35,14 +35,15 @@ export function ClosePopScreenBtn({setVisiblity,myCloseFun}){
 
     },[])
     return (
-        <button id={unique_lil_mannequin.current} className="close-btn">
+        <button id={unique_id.current} className="close-btn">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                 <path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/>
             </svg>
         </button>
     )
 }
-export function ConfrimDialog({closeBox,setVisiblity,default_value,setResponses}){
+export function ConfrimDialog({saveFun,closeBox,closeParent}){
+    // console.log(default_value,setResponses)
     // <ConfrimDialog setVisiblity={setSearch_SettingVisiblity} setResponses={setSearchSettings} value={DEFAULT_SEARCH_SETTINGS} />
     const list_of_btn_ids=[nanoid(),nanoid(),nanoid()]
     React.useEffect(function(){
@@ -75,30 +76,31 @@ export function ConfrimDialog({closeBox,setVisiblity,default_value,setResponses}
                 // i=btns.length?0:i+i
             btns[i].focus()
         }
-
-        // }
         document.querySelector('body').addEventListener('keyup',moveFocus)
         return ()=> document.querySelector('body').removeEventListener('keyup',moveFocus)
 
     },[])
-    function close(){
+    function cancel(){//closes Dialog
         closeBox(false)
-        return false
+    }
+    function dontSave(){
+        closeBox(false)//closes Dialog
+        closeParent(false)//closes Parent Screen
     }
     return(
         <div className="cover-screen coverx">
             <div className="confirm-settings search">
                 <section className="head">
                     <h3>Save Settings</h3>
-                    <ClosePopScreenBtn myCloseFun={close}setVisiblity={()=>{}}/>
+                    <ClosePopScreenBtn myCloseFun={cancel}/>
                 </section>
                 <section className="content">
                     <p>Do you want to Save Changes</p>
                 </section>
                 <section className="btns-box">
-                    <button className="activ" onClick={()=>console.log(11)} id={list_of_btn_ids[0]}>Save</button>
-                    <button id={list_of_btn_ids[1]}>Don't Save</button>
-                    <button id={list_of_btn_ids[2]} onClick={close}>Cancel</button>
+                    <button className="activ" onClick={saveFun} id={list_of_btn_ids[0]}>Save</button>
+                    <button id={list_of_btn_ids[1]} onClick={dontSave}>Don't Save</button>
+                    <button id={list_of_btn_ids[2]} onClick={cancel}>Cancel</button>
                 </section>
             </div>
         </div>

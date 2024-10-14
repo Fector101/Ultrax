@@ -1,5 +1,4 @@
 const Store=require("electron-store")
-const {screen} = require('electron')
 
 class UserSettings{
     data_to_init=[
@@ -32,7 +31,7 @@ class UserSettings{
         this.data_to_init.forEach(key=>{
             let data=[]
             if(['playlists', 'search_settings'].includes(key)){
-                if('search_settings'===key){
+                if(key==='search_settings'){
                     // data={"used filters":[], "un_used filters":[]}
                     data={
                         spelling_accuracy: true,
@@ -40,7 +39,8 @@ class UserSettings{
                         used_basic_opts:['Song Title','Artist'],
                         un_used_basic_opts: ["Album", "Length"],
                         used_adv_opts:[],
-                        un_used_adv_opts:[]
+                        un_used_adv_opts:[],
+                        confirm:true,
                     }
                 }else{
                     data={}

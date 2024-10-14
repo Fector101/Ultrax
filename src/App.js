@@ -4,6 +4,7 @@ import './components/css/app.css'//kept above components import so components st
 import Titlebar from "./components/js/Titlebar";
 import Sidebar from "./components/js/Sidebar";
 import PlayerControl from "./components/js/Playercontrol";
+import SearchSettingScreen from "./components/js/SearchSettingScreen";
 import {AlbumsTab} from "./components/js/Tabs";
 import {MiniTab_Manager,AFolder_Screen} from './components/js/FirstScreen_MiniTabs'
 import {MyBanner} from './components/js/Tabs'
@@ -136,7 +137,8 @@ export default function App(){
     let [album_name,setAlbum_name]=React.useState('')
     let [obj_for_folder_tabs,setObj_4_foldersTabs]=React.useState({})
     let [obj_for_albums_tabs,setObj_4_albumsTabs]=React.useState({})
-    let [search_setting_visiblity,setSearch_SettingVisiblity]=React.useState(true)
+    let [display_setting,setDisplaySetting]=React.useState('flex')
+
     let [search_settings, setSearchSettings] = React.useState(DEFAULT_SEARCH_SETTINGS)
     React.useEffect(function(){
         if(document.querySelector('.BIGBAR').dataset.frm_btn !== 'true' ){
@@ -174,71 +176,71 @@ export default function App(){
         })
 
         console.log('getting data....')
-        createPages('get_all').then(res=>{//get_all
-            if(!res){
-                return
-                // send app nofitication "No folder choosen"
-            }
-            let ALL_SONGS_LIST=[]
-            let ALL_FOLDERS_LIST=[]
-            let FOLDERS_OBJ={}
-            let ALBUMS_OBJ={}
+        // createPages('get_all').then(res=>{//get_all
+        //     if(!res){
+        //         return
+        //         // send app nofitication "No folder choosen"
+        //     }
+        //     let ALL_SONGS_LIST=[]
+        //     let ALL_FOLDERS_LIST=[]
+        //     let FOLDERS_OBJ={}
+        //     let ALBUMS_OBJ={}
 
-            res.structure.forEach(function(each){
-                const keys_=Object.keys(each)
-                const values_=Object.values(each)
-                const {list_of_songs,list_of_tags}=values_[0]
+        //     res.structure.forEach(function(each){
+        //         const keys_=Object.keys(each)
+        //         const values_=Object.values(each)
+        //         const {list_of_songs,list_of_tags}=values_[0]
 
-                let folder_name=keys_[0]
-                let folder_data={len:list_of_songs.length,folderDate_mod:values_[1],folderDate_created:values_[2],folderSize:values_[3],folderDuration:values_[4]}
-                const folder_=[folder_name,folder_data]
-                // FOLDERS_OBJ[folder_name]={list_of_songs:list_of_songs,list_of_tags:list_of_tags,...folder_data}
-                ALL_FOLDERS_LIST.push(folder_)
-                const song_name_tags_4_eachfolder=list_of_songs.map((song_path,i)=>{
-                    const album_name=list_of_tags[i]['album'] || 'Unknown Album'
-                            if(!ALBUMS_OBJ.hasOwnProperty(album_name)){
-                                ALBUMS_OBJ[album_name]={
-                                    'songs':{
-                                        [song_path]:list_of_tags[i]
-                                    },
-                                     tags:{'dur':list_of_tags[i]['dur'],
-                                    'size':list_of_tags[i]['size'],
-                                    'album_artist':list_of_tags[i]['artist'],
-                                    'len':1,
-                                    fav_album:false,
-                                    'img':list_of_tags[i]['picture'],
-                                    'date_cre':list_of_tags[i]['year']}
-                                    }
+        //         let folder_name=keys_[0]
+        //         let folder_data={len:list_of_songs.length,folderDate_mod:values_[1],folderDate_created:values_[2],folderSize:values_[3],folderDuration:values_[4]}
+        //         const folder_=[folder_name,folder_data]
+        //         // FOLDERS_OBJ[folder_name]={list_of_songs:list_of_songs,list_of_tags:list_of_tags,...folder_data}
+        //         ALL_FOLDERS_LIST.push(folder_)
+        //         const song_name_tags_4_eachfolder=list_of_songs.map((song_path,i)=>{
+        //             const album_name=list_of_tags[i]['album'] || 'Unknown Album'
+        //                     if(!ALBUMS_OBJ.hasOwnProperty(album_name)){
+        //                         ALBUMS_OBJ[album_name]={
+        //                             'songs':{
+        //                                 [song_path]:list_of_tags[i]
+        //                             },
+        //                              tags:{'dur':list_of_tags[i]['dur'],
+        //                             'size':list_of_tags[i]['size'],
+        //                             'album_artist':list_of_tags[i]['artist'],
+        //                             'len':1,
+        //                             fav_album:false,
+        //                             'img':list_of_tags[i]['picture'],
+        //                             'date_cre':list_of_tags[i]['year']}
+        //                             }
                                    
-                            }else{
-                                if(ALBUMS_OBJ[album_name].tags.album_artist===undefined && album_name==='Unknown Album'){
-                                    ALBUMS_OBJ[album_name].tags.album_artist=list_of_tags[i]['artist']
-                                }
-                                ALBUMS_OBJ[album_name]['songs'][song_path]=list_of_tags[i]
-                                ALBUMS_OBJ[album_name]['tags']['dur']+=list_of_tags[i]['dur']//||0
-                                ALBUMS_OBJ[album_name]['tags']['len']+=1
-                            }
-                    return [song_path,list_of_tags[i]]
-                })
-                ALL_SONGS_LIST.push(...song_name_tags_4_eachfolder)
-                // FOLDERS_OBJ[folder_name]=[...song_name_tags_4_eachfolder]
-                FOLDERS_OBJ[folder_name]={songs:[...song_name_tags_4_eachfolder],data:folder_data}
+        //                     }else{
+        //                         if(ALBUMS_OBJ[album_name].tags.album_artist===undefined && album_name==='Unknown Album'){
+        //                             ALBUMS_OBJ[album_name].tags.album_artist=list_of_tags[i]['artist']
+        //                         }
+        //                         ALBUMS_OBJ[album_name]['songs'][song_path]=list_of_tags[i]
+        //                         ALBUMS_OBJ[album_name]['tags']['dur']+=list_of_tags[i]['dur']//||0
+        //                         ALBUMS_OBJ[album_name]['tags']['len']+=1
+        //                     }
+        //             return [song_path,list_of_tags[i]]
+        //         })
+        //         ALL_SONGS_LIST.push(...song_name_tags_4_eachfolder)
+        //         // FOLDERS_OBJ[folder_name]=[...song_name_tags_4_eachfolder]
+        //         FOLDERS_OBJ[folder_name]={songs:[...song_name_tags_4_eachfolder],data:folder_data}
 
-            })
-            setObj_4_albumsTabs(old=>({...old,...ALBUMS_OBJ}))
-            setObj_4_foldersTabs(old=>({...old,...FOLDERS_OBJ}))
-            setdata([ALL_SONGS_LIST,ALL_FOLDERS_LIST])
-            setSearchSettings(old=>{
-                let old_formats=[...old.used_adv_opts,...old.un_used_adv_opts]
-                let formats_to_add = old.used_adv_opts
-                // Checking if format has been gotten before adding to search_settings.used_adv_opts
-                res.formats.forEach(e_format=>!old_formats.includes(e_format)&&formats_to_add.push(e_format))
+        //     })
+        //     setObj_4_albumsTabs(old=>({...old,...ALBUMS_OBJ}))
+        //     setObj_4_foldersTabs(old=>({...old,...FOLDERS_OBJ}))
+        //     setdata([ALL_SONGS_LIST,ALL_FOLDERS_LIST])
+        //     setSearchSettings(old=>{
+        //         let old_formats=[...old.used_adv_opts,...old.un_used_adv_opts]
+        //         let formats_to_add = old.used_adv_opts
+        //         // Checking if format has been gotten before adding to search_settings.used_adv_opts
+        //         res.formats.forEach(e_format=>!old_formats.includes(e_format)&&formats_to_add.push(e_format))
                       
-                return {...old, used_adv_opts:formats_to_add}
-            })
-            setValue(true)
-            // setAllFolders(ALL_FOLDERS_LIST)
-        })
+        //         return {...old, used_adv_opts:formats_to_add}
+        //     })
+        //     setValue(true)
+        //     // setAllFolders(ALL_FOLDERS_LIST)
+        // })
         // return
         bridge.isthere_saved_folders().then(bool__=>{
             if(bool__){
@@ -459,12 +461,11 @@ export default function App(){
         search_settings.adv_opt_visible && check_opts(search_settings.un_used_adv_opts,'used_adv_opts','un_used_adv_opts')
         // checkIfUsingAdvFilter()
     }
-    let [ask_to_discard,setAskToDiscard]=React.useState(false)
     
     function checkSettings(){
         // console.log(search_settings)
         if(search_settings.confirm){
-            setSearch_SettingVisiblity(false)
+            setDisplaySetting(false)
         }else{
             setAskToDiscard(true)
             return false // this makes search settting not close
@@ -488,105 +489,16 @@ export default function App(){
                                     <div className="first-tab">
                                         {
                                             folder_path?
-                                                <AFolder_Screen 
-                                                    dir={folder_path}
-                                                    // songs={data_big.length?data_big:small_data}/>
-                                                    songs={obj_for_folder_tabs[folder_path].songs}
-                                                    data={obj_for_folder_tabs[folder_path].data}/>
+                                                <AFolder_Screen dir={folder_path} songs={obj_for_folder_tabs[folder_path].songs} data={obj_for_folder_tabs[folder_path].data}/>
                                             :
                                             <>
-                                                <MyBanner setSearch_settings_visiblity={setSearch_SettingVisiblity}/> 
-
-                                                <MiniTab_Manager 
-                                                    all_songs_nd_folders_data={data_big}
-                                                    Choosenfolders_data_n_folders={small_data}
-                                                    setFolderDir__={setFolder_path}
-                                                    // screen={'all_songs'}
-                                                    screen={a_miniTab_2_show}
-                                                    setMiniTab_={setMiniTab}
-                                                />
+                                                <MyBanner setDisplaySetting__={setDisplaySetting}/> 
+                                                <MiniTab_Manager
+                                                    all_songs_nd_folders_data={data_big} Choosenfolders_data_n_folders={small_data}
+                                                    setFolderDir__={setFolder_path}  screen={a_miniTab_2_show} setMiniTab_={setMiniTab} />
                                             </>
                                         }
-                                        {/* <MiniTab_Manager ChangeScreen={setCurrentMinitab} screen={current_mini_tab}/> */}
-                                        { search_setting_visiblity &&
-                                            <div className="search-settings cover-screen coverx">
-                                                <div className="search-settings-box">
-                                                    <ClosePopScreenBtn myCloseFun={checkSettings} setVisiblity={setSearch_SettingVisiblity}/>
-                                                    {/* <h3>Settings</h3> */}
-                                                    <section className="filter-box">
-                                                        <h3>Current Filters</h3>
-                                                        <div onClick={removeSearchFilter} className="using-filters">
-                                                            {search_settings.used_basic_opts.map( opt => <AddFilter_btn key={nanoid()} opt_name={opt} show_btn={search_settings.adv_opt_visible} /> )}
-                                                            {search_settings.used_adv_opts.map( opt => <AddFilter_btn key={nanoid()} opt_name={opt} show_btn={search_settings.adv_opt_visible} adv={true}/> )}
-                                                            {/* <AddFilter_btn opt_name='Artist'/>
-                                                            <AddFilter_btn opt_name='Song Title'/>
-                                                            <AddFilter_btn adv='true' opt_name='.MP3'/>
-                                                            <AddFilter_btn adv='true' opt_name='.WAV'/>
-                                                            <AddFilter_btn adv='true' opt_name='.OPUS'/>
-                                                            <AddFilter_btn adv='true' opt_name='.M4A'/> */}
-                                                        </div>
-                                                        <h3>Add Filters</h3>
-                                                        <div className="unused-filters">
-                                                            <div onClick={addSearchFilter} className="unused-box">
-                                                                {/* <AddFilter_btn opt_name='Album'/>
-                                                                <AddFilter_btn opt_name='Length'/> */}
-                                                                {search_settings.un_used_basic_opts.map( opt => <AddFilter_btn key={nanoid()} show_btn={search_settings.adv_opt_visible} opt_name={opt}/> )}
-                                                                {search_settings.un_used_adv_opts.map( opt => <AddFilter_btn key={nanoid()} show_btn={search_settings.adv_opt_visible} opt_name={opt} adv={true}/> )}
-
-                                                                <button className="show-more-filters" onClick={toggleSearch_AdvOpts}>
-                                                                    {checkIfUsingAdvFilter()}
-                                                                </button>
-                                                            </div>
-                                                            {/* <div className="warning">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="info"><g data-name="Layer 2"><path d="M8 2a6 6 0 1 0 6 6 6 6 0 0 0-6-6Zm0 11a5 5 0 1 1 5-5 5 5 0 0 1-5 5Z"></path><path d="M8 6.85a.5.5 0 0 0-.5.5v3.4a.5.5 0 0 0 1 0v-3.4a.5.5 0 0 0-.5-.5zM8 4.8a.53.53 0 0 0-.51.52v.08a.47.47 0 0 0 .51.47.52.52 0 0 0 .5-.5v-.12A.45.45 0 0 0 8 4.8z"></path></g></svg>
-                                                                <p>This means Files with .mp3 won't be displayed in search result</p>
-                                                            </div> */}
-                                                        </div>
-                                                    </section>
-                                                    {/* <section className="un-named-box">
-                                                        <div>
-                                                            <input className='datetime' type="time" value={formValues.filter_date_start} name="filter_date_start" onChange={formOnChange}/>
-                                                        </div>
-                                                    </section> */}
-                                                    <section className="switches-box">
-
-                                                        <div className="spelling">
-                                                            <div className="action-box">
-                                                                <h3>Spelling Accuracy</h3>
-                                                                <label className="switch">
-                                                                    {/* <input type="checkbox switch checked" /> */}
-                                                                    <input type="checkbox" name="spelling_name" checked={formValues.spelling_name} onChange={formOnChange}/>
-                                                                    <span className="slider round"></span>
-                                                                </label>
-                                                                <div className="sample">
-                                                                    <p>If turned Off&nbsp; </p>
-                                                                    <span>
-                                                                        <p>Input: yob</p>
-                                                                        <p>&nbsp;➡&nbsp;</p>
-                                                                        <p>Result: boy</p>
-                                                                    </span>
-                                                                </div>
-                                                            </div>
-                                                            <div className="warning">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="info"><g data-name="Layer 2"><path d="M8 2a6 6 0 1 0 6 6 6 6 0 0 0-6-6Zm0 11a5 5 0 1 1 5-5 5 5 0 0 1-5 5Z"></path><path d="M8 6.85a.5.5 0 0 0-.5.5v3.4a.5.5 0 0 0 1 0v-3.4a.5.5 0 0 0-.5-.5zM8 4.8a.53.53 0 0 0-.51.52v.08a.47.47 0 0 0 .51.47.52.52 0 0 0 .5-.5v-.12A.45.45 0 0 0 8 4.8z"></path></g></svg>
-                                                                <p>This may delay Search results</p>
-                                                            </div>
-                                                        </div>
-
-                                                    </section>
-                                                    <section className="btns-box">
-                                                        <button>Reset</button>
-                                                        <button onClick={()=>setSearchSettings(old=>({...old,confirm:true}))}>Save</button>
-                                                        <button>Cancel</button>
-                                                    </section>
-                                                </div>
-                                            </div>
-                                        }
-                                        {ask_to_discard&&
-                                        // add discard settings genreic 
-                                            <ConfrimDialog closeBox={setAskToDiscard} setVisiblity={setSearch_SettingVisiblity} setResponses={setSearchSettings} value={DEFAULT_SEARCH_SETTINGS} />
-                                                
-                                        }
+                                        <SearchSettingScreen setDisplaySetting__={setDisplaySetting} display_setting__={display_setting}/>
                                     </div>
                                 }
                                 {screen.replace(' btn','')==='albums'&&

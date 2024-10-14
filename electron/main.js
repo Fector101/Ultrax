@@ -264,6 +264,7 @@ async function resizeAndMoveFun(){
 
 
 const savedSettings=new UserSettings(isDev)
+// console.log(savedSettings.filePath)
 let win;
 function coordinatesWorker(){
     
@@ -408,7 +409,6 @@ app.whenReady().then(()=>{
             return res
         }
         })
-
-
-
+    ipcMain.handle('getSettingsData',async ()=> savedSettings.getData('search_settings'))
+    ipcMain.handle('setSettingsData',async ()=> savedSettings.setData('search_settings'))
 })

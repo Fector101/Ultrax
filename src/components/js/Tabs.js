@@ -4,7 +4,7 @@ import { roundBtn_Ele } from "./FirstScreen_MiniTabs"
 import { nanoid } from "nanoid"
 import { formatTime, get_avg_rgb, MY_LOCAL_VARIABLES, toHHMMSS } from "./helper_funcs"
 import { buttonClickedForTab_btn } from "./Titlebar"
-export function SeacrhComponent({setSettingsVisiblity}){
+export function SeacrhComponent({setDisplaySetting___}){
     let [formValues, setFormValues]= React.useState({
         search_txt:''
         // password:'',
@@ -47,7 +47,8 @@ export function SeacrhComponent({setSettingsVisiblity}){
     }
     React.useEffect(function(){
         document.querySelector('button.filter-btn').addEventListener('click',function(){
-            setSettingsVisiblity(true)
+            setDisplaySetting___('flex')
+            console.log('breathe of fresh air');
             
         })
     },[])
@@ -84,7 +85,7 @@ export function SeacrhComponent({setSettingsVisiblity}){
     )
 }
 
-export function MyBanner({setSearch_settings_visiblity}){
+export function MyBanner({setDisplaySetting__}){
     return (
         <div className="banner">
             <h1 className="brand">Libary</h1>
@@ -94,7 +95,7 @@ export function MyBanner({setSearch_settings_visiblity}){
                 <img className="profile-pic" src="components/icons/img2.png" alt="" srcSet=""/>
                 <p className="inline-block">Fabian Joseph</p>
             </div>
-            <SeacrhComponent setSettingsVisiblity={setSearch_settings_visiblity}/>
+            <SeacrhComponent setDisplaySetting___={setDisplaySetting__}/>
         </div>
     )
 }
