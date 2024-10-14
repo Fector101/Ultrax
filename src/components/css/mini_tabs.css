@@ -1,0 +1,237 @@
+.mini-tabs {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
+}
+
+::-webkit-scrollbar {
+    appearance: none;
+    width: 10px;
+    background-color: #34343463;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 1px;
+    background-color: #9f9f9f63;
+}
+
+
+.tab-btns-box {
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    height: 37px;
+    margin-left: 15px;
+    width: max-content;
+}
+
+.tab-btns-box button {
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+    color: #9f9f9f;
+    font-size: 15px;
+    transition: color 0.7s ease 0s, background-color 0.3s ease 0s;
+    width: 110px;
+}
+
+.tab-btns-box button:hover {
+    color: rgb(255 255 255 / 71%);
+    background: #6b68681f;
+}
+
+.tab-btns-box button.tab-active {
+    color: #e7b65a;
+    background-color: var(--tab-active);
+}
+
+.mini-tabs--box {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+/* .mini-tabs--box::after {
+    content: "";
+    height: 17px;
+    width: 100%;
+    background: linear-gradient(to top, rgba(33, 33, 33, 0.8) 0%, rgba(33, 33, 33, 0.75) 25%, rgba(33, 33, 33, 0.5) 50%, rgba(33, 33, 33, 0.25) 75%, rgba(33, 33, 33, 0) 100%);
+    position: absolute;
+    bottom: -3px;
+    right: 0;
+} */
+
+.mini-tabs--box .mini-tab {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Tabs box scroll --code start */
+.mini-tabs--box .sticky.mini-tab {
+    overflow: hidden auto;
+}
+
+.mini-tabs--box .songs {
+    height: calc(100% - 32px);
+    overflow: hidden auto;
+}
+
+/* Tabs box scroll --code end */
+
+
+/* Folder Header */
+.folder-header {
+    font-size: 15px;
+    color: #bcc1bc;
+    background-color: #2a2a2a;
+    width: 100%;
+    position: sticky;
+    height: 32px;
+    top: 0;
+    z-index: 1;
+    border-bottom: 1px solid grey;
+    display: flex;
+}
+
+.tapped-folder {
+    flex: 1;
+    overflow: hidden;
+    color: #d4ffd7;
+    padding-left: 10px;
+    user-select: text;
+    display: flex;
+    align-items: center;
+}
+
+.tapped-folder p {
+    overflow: hidden;
+}
+.folder-header .header-build1-btn-case{
+    align-items: center;
+    display: flex;
+    width: 35px;
+}
+
+.folder-header .header-build1-btn-case button{
+    height: 100%;
+    width: 100%;
+}
+
+
+/* Build1 and Build1 Header setup */
+.build1.bud1head {
+    /* padding-right: 10px; */
+    background-color: #2a2a2a;
+    /* border-bottom: 1px solid #777777; */
+    border-bottom: 1px solid #4b4b4b;
+    height: 32px;
+    font-size: 12px;
+    color: #c1c1c1;
+    cursor: default;
+}
+.build1 {
+    display: grid;
+    grid-template-columns: [index] 40px [first] minmax(120px, var(--col1, 4fr)) [var1] minmax(100px, var(--col2, 2fr)) [var2] minmax(80px, var(--col3, 5fr)) [var3] minmax(50px, var(--col4, 1fr)) [last] 58px;
+    gap: 14px;
+    height: 45px;
+    cursor: pointer;
+    font-size: 15px;
+    padding-left: 5px;
+    align-items: center;
+}
+
+.song-cover {
+    background-size: cover;
+    height: 38px;
+    width: 38px;
+}
+
+.song-cover-svg {
+    width: 20px;
+    margin: 8px;
+    fill: #efefef;
+}
+
+.build1:not(.build1.bud1head):hover {
+    background-color: #8684841c;
+    color: #9f9f9f;
+    font-size: 15.5px;
+    transition: font-size 0.1s;
+
+    .song-artist,
+    .song-album,
+    .song-length {
+        color: #9f9f9f;
+    }
+
+}
+
+div.build1js.build1:has(.build1-btn-case button:hover) {
+    color: var(--bod-color);
+    background-color: transparent;
+    font-size: 15px;
+
+    .song-artist,
+    .song-album,
+    .song-length {
+        color: #c4c1c1;
+    }
+}
+
+.song-artist,
+.song-album,
+.song-length {
+    color: #c4c1c1;
+}
+
+.build1 p {
+    overflow: hidden;
+    padding: 0;
+}
+
+.build1-btn-case,.header-build1-btn-case{
+    display: flex;
+}
+
+.build1-btn-case button,
+.header-build1-btn-case button {
+    margin: 0 auto;
+}
+
+/* .build1-btn-case button:hover {
+    svg {
+      fill:rgb(200 108 113);
+    }
+} */
+
+
+button.sort-btn:hover {
+    background: #cdcdcd63;
+}
+
+button.sort-btn svg {
+    position: relative;
+    top: 2.85px;
+    width: 100%;
+    height: 100%;
+    fill: white;
+}
+
+.fav-svg.not-in-favjs {
+    fill: rgb(149 148 149);
+
+}
+
+.fav-svg.in-favjs {
+    fill: rgb(255 85 94);
+
+}
+
+.fav-btn-build {
+    border-radius: 50%;
+    padding: 5px 5px 2.5px 5px;
+    height: 30px;
+    width: 30px;
+    background-color: rgba(0, 0, 0, 0);
+
+}

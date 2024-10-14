@@ -1,0 +1,177 @@
+.folder_case {
+    height: 100%;
+    overflow: hidden scroll;
+    width: 100%;
+}
+.larger-seethro-banner{
+    height: 45%;
+    overflow: hidden;   
+}
+.larger-seethro-banner img {
+    width: 100%;
+    height: 100%;
+    transform: translateY(-100%);
+}
+.larger-seethro-banner .cover {
+    background-color: #000000ea;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    font-size: 30px;
+    flex-direction: column;
+}
+.larger-seethro-banner .cover .btm-corner {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    gap: 20px;
+    height: max-content;
+    margin: auto auto 30px 30px;
+}
+.PA-details {
+    font-size: 16px;
+    color: #99cb98;
+}
+.larger-seethro-banner .cover .btm-corner .generic-header-btns {
+    margin-left: 10px;
+}
+
+.generic-header-btns {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.curved-play-btn {
+    background-color: rgb(81, 185, 79);
+    width: 140px;
+    height: 44px;
+    padding: 0;
+    border-radius: 20px;
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    transition: box-shadow 0.3s ease-in-out;
+}
+.curved-play-btn svg {
+    height: 25px;
+    fill: white;
+    margin-left: 25px;
+}
+.curved-play-btn span {
+    margin-right: auto;
+    margin: auto;
+    margin-left: 19px;
+    font-size: 21px;
+    font-weight: 600;
+}
+.round-btn{
+    width: 40px;
+    height: 40px;
+    border-radius: 60%;
+    box-sizing: border-box;
+    display: flex;
+}
+.round-btn svg{
+    margin: auto;
+    fill: #e0dfdf;
+    height: 22px;
+}
+
+.larger-seethro-banner .cover .search-album {
+    margin-left: auto;
+    margin-right: 20px;
+    margin-top: 20px;
+    background: rgb(65 63 63 / 73%);
+}
+.search-album {
+    border-radius: 8px;
+    height: 30px;
+    width: 280px;
+    text-indent: 10px;
+    padding-top: 3.5px;
+    font-size: 15px;
+    letter-spacing: 2px;
+    color: #daece7;
+    background-color: rgba(138, 137, 137, 0.733);
+    margin-right: 5px;
+}
+
+.search-album::placeholder {
+    color: #daece77a;
+    font-size: 13px;
+}
+
+.folder-songs-con{
+    height: 55%;
+}
+.sort-view-root {
+    /* height: 35px; */
+    background-color: rgba(26, 25, 25, 0.849);
+    padding-left: 8px;
+    padding-right: 8px;
+    display: flex;
+    align-items: center;
+}
+.sort-view-root .ascend-descend-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: max-content;
+    margin-block: 2px;/*top and bottom*/
+}
+.sort-view-root .ascend-descend-box button {
+    /* background-color: rebeccapurple; */
+    height: 17px;
+    width: 19px;
+    border-radius: 70%;
+    margin: auto;
+    padding: revert;/* This adds padding back that i removed from all elements*/
+}
+.sort-view-root .ascend-descend-box button svg {
+    /* height: 20px; */
+    /* width: 20px; */
+    fill: rgb(211, 209, 209);
+    height: 100%;
+    width: 100%;
+    /* display: none; */
+}
+.sort-input {
+    margin-left: auto;
+    background-color: rgb(65 63 63 / 73%);
+    color: #d0cfcf;
+    border-color: rgb(84 82 82 / 73%);
+}
+.sort-view-options {
+    display: flex;
+    flex-direction: column;
+}
+.sort-view-options .opts-btn {
+    display: flex;
+    height: 22px;
+    width: 22px;
+    margin-left: 5px;
+    border-radius: 50%;
+    padding: 2px;
+}
+.sort-view-options .opts-btn svg {
+    width: 100%;
+    height: 100%;
+    fill: var(--svg-fill);
+}
+.opts-list {
+    position: absolute;
+    background: royalblue;
+    height: 50px;
+    padding: 5px;
+    display: none;
+    flex-direction: column;
+    margin-left: -106px;
+    margin-top: 23px;
+    background-color: rgb(55 54 54);
+    color: #d0cfcf;
+    border: 1px solid #474545;
+    border-radius: 2px;
+}

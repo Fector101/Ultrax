@@ -1,0 +1,91 @@
+#playing-build#song-cover-box-grid .song-cover svg {
+  margin-left: 10%;
+}
+
+#grid-view {
+  padding: 3px 10px;
+  display: grid;
+  grid-gap: 8px;
+  justify-content: space-between;
+  grid-template-columns: repeat(auto-fill, 130px);
+
+}
+
+/* Folder */
+.folder-grid {
+  height: 120px;
+  /* width: 120px; */
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.folder-cover-box-grid {
+  display: flex;
+  flex-direction: column;
+  height: 70%;
+  border-radius: 5px 5px 0 0;
+  padding: 0;
+  width: 100%;
+}
+.folder-cover-box-grid img {
+  height: 98%; /*100% looked too big*/
+}
+.folder-words-grid {
+  width: 100%;
+}
+.folder-name {
+  overflow: hidden;
+}
+.folder-info {
+  color: #b1d9cc;
+  font-size: 13px;
+}
+
+
+.folder-size {
+    color: #dffef0;
+    background: #6fbf6e21;
+    border-radius: 3px;
+    padding: 0 2px;
+    margin-left: 2px;
+}
+
+.selected-folder-info {
+    color: #55ffc8;
+    font-size: 14px;
+    padding: 0;
+}
+
+.folderBuild:hover {
+  background-color: rgb(134 132 132 / 23%);
+  box-shadow: 0 0 7px rgb(58, 57, 57);
+}
+
+
+.folder {
+  width: 75px;
+  height: 46px;
+  margin: auto;
+  position: relative;
+  border-radius: 0 6px 6px 6px;
+  box-shadow: 4px 4px 7px rgb(0 0 0 / 27%);
+}
+
+.folder,.folder-cap {
+  background-color: #628dd9;
+}
+.folder-cap {
+  width: 50%;
+  height: 12px;
+  border-radius: 10px 27px 0 0;
+  /* background-color: #708090; */
+  position: relative;
+  top: -12px;
+  left: 0px;
+  margin-bottom: 2px;
+}

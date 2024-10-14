@@ -1,0 +1,56 @@
+/* Welcome screen loader start */
+/* Welcome screen loader end */
+.coverx button.close-btn{
+    height: 15px;
+    width: 15px;
+    align-self: flex-end;
+}
+.coverx button.close-btn svg{
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    fill: var(--svg-fill);
+}
+.confirm-settings{
+    min-height: 170px;
+    min-width: 300px;
+    background-color: rgb(29, 28, 28);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.confirm-settings section {
+    padding: 0 10px;
+    /* background: var(--title-bg); */
+}
+.confirm-settings section.head {
+    background: var(--title-bg);
+    display: flex;
+    padding-block: 6px;
+    justify-content: space-between;
+}
+.confirm-settings section.head button.close-btn{
+    align-self: center;
+    height: 12px;
+    width: 12px;
+}
+.confirm-settings section.content {
+    margin: auto 10px;
+}
+.confirm-settings section.btns-box {
+    margin: auto 0 6px auto;
+    display: flex;
+    gap: 5px;
+}
+.confirm-settings section.btns-box button {
+    width: 67px;
+    height: 27px;
+    border: 1px solid grey;
+    border-radius: 4px;
+    font-size: 13px;
+}
+.confirm-settings section.btns-box button:focus{
+    border:1px solid var(--seek-thumb);
+}
+/* button{} */

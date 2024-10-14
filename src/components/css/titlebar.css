@@ -1,0 +1,159 @@
+.BIGBAR {
+  width: 100%;
+  height: 38px;/**/
+  background-color: var(--title-bg);
+  /* background-color: #0c0f1adb; */
+  /*background-color:#393b39db;*/
+  display: flex;
+  -webkit-app-region: drag;
+}
+
+.BIGBAR button {
+  -webkit-app-region: no-drag;
+}
+
+.path-text {
+  margin: auto;
+  color: #7b7a7a;
+  overflow: hidden;
+  flex: 1;
+}
+
+.dockbtn {
+  /* margin-left: auto; */
+}
+
+.mmbtn,
+.dockbtn,
+.terminate {
+  width: 40px;
+  display: flex;
+  height: 100%;
+
+}
+
+/* .mmbtn,.dockbtn{ */
+button.mmbtn:not(.ri):hover,
+button.dockbtn:not(.ri):hover {
+  /* background-color: gray; */
+  background-color: rgba(255, 255, 255, 0.199);
+
+}
+
+/* .mmbtn:hover{
+    background-color: rgb(237, 210, 12);
+}
+.dockbtn:hover{
+    background-color: rgb(54, 196, 11);
+} */
+button.terminate:not(.ri):hover {
+  /* .terminate{ */
+  background-color: #e12626;
+
+}
+
+.dockbtn svg,
+.mmbtn svg,
+.terminate svg {
+  margin: auto;
+  fill: white;
+
+}
+
+.dockbtn img,
+.mmbtn img {
+  margin: auto;
+
+}
+
+.dockbtn img {
+  width: 13px;
+  height: 1px;
+
+}
+
+.mmbtn img {
+  width: 15px;
+  height: 14px;
+}
+
+.mmbtn svg {
+  width: 11px;
+  height: 11px;
+}
+
+.terminate svg {
+  width: 10px;
+}
+
+
+
+/* .back-btn{ */
+.back-btn:not(.ri):hover {
+  background: #4d4d4d;
+}
+
+.back-btn {
+  padding-top: 2px;
+  width: 27px;
+  height: 27px;
+  display: flex;
+  margin: auto 0;
+  margin-left: 3px;
+  border-radius: 60%;
+}
+
+.back-btn svg path {
+  fill: #c5c4c4
+}
+
+.back-btn svg {
+  /* width: 12px; */
+  width: 13.594px;
+  margin: auto;
+}
+
+.back-btn.inactive {
+  /* background-color: #4d4d4dfc; */
+}
+
+.back-btn.inactive path {
+  fill: #686767;
+}
+
+
+.complete-cover {
+  background-color: rgba(0, 0, 0, 0.623);
+  background-size: cover;
+  height: 100%;
+  text-align: center;
+  justify-content: center;
+  /* z-index: 3; */
+  position: absolute;
+  width: 100%;
+  align-items: center;
+  z-index: 9;
+  display: flex;
+}
+
+.complete-cover .com-loader {
+  width: 150px;
+  height: 150px;
+
+  border: 15px #fffcfc3d solid;
+  border-radius: 100%;
+  border-top-color: #2ecc33;
+  /* border-style: groove; */
+  animation: spin 1s linear infinite;
+
+}
+
+.com-loader-style-1 {
+  width: 50%;
+  border: 15px #fffcfc3d solid;
+  border-radius: 100%;
+  border-top-color: #2ecc33;
+  border-style: groove;
+  animation: spin 1s linear infinite;
+  height: 10px;
+}

@@ -1,0 +1,219 @@
+
+/* Side Bar */
+.side-bar {
+    height: 100%;
+    width: 48px;
+    display: flex;
+    padding-bottom: 10px;
+    /* align-items: center; */
+    flex-direction: column;
+    background-color: rgba(1, 17, 6, 0.048);
+    border-right: 1px solid rgba(0, 0, 0, 0.164);
+    overflow: hidden;
+  }
+  .side-bar::-webkit-scrollbar {
+    background-color: #34343429;
+  }
+  
+  .SB-user-details-box{
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    padding: 4%;
+    align-items: center;
+    justify-content: center;
+  }
+  .SB-profile-pic{
+    border-radius: 50%;
+    margin-bottom: 10px;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    /* overflow: hidden; */
+    background-size: cover;
+  }
+  /*.SB-profile-pic:before{
+     position: absolute;
+    content: '';
+    background-color: orange;
+    pointer-events: none;
+    opacity: 0.5;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; 
+  
+  }*/
+  .SB-profile-pic div{
+    position: relative;
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    background-color: #1df504;
+    left: 30%;
+    bottom: 42%;
+    /* z-index: 1000002244; */
+  }
+  .SB-profile-pic img{
+    position: relative;
+  }
+  .User-id{
+    margin-top: auto;
+  }
+  
+  .SB-btn {
+    width: 100%;
+    display: flex;
+    margin-bottom: 10px;
+    min-height: 40px;
+    border-radius: 2px;
+  }
+  
+  .SB-btn p {
+    width: 0%;
+    opacity: 0;
+  }
+  
+  .side-bar svg {
+    fill: rgb(211, 209, 209);
+    margin: auto;
+    width: 20px;
+    height: 20px;
+  }
+  
+  
+  .SB-btn:hover {
+    background-color: rgb(209 244 223 / 9%);
+    /* background-color: rgb(217 248 229 / 21%); */
+    /* background-color: rgba(248, 217, 217, 0.205); */
+    cursor: pointer;
+  }
+  
+  .SB-btn.SB-settings-btn {
+    margin: auto auto 0;
+    /* margin-top: 5px; */
+    /* position: fixed; */
+    /* bottom: 100px; */
+    /* background: grey; */
+    /* width: 48px; */
+  }
+  
+  
+  .SB-btn.SB-menu-btn {
+    margin-bottom: 50px;
+    width: 48px;
+    margin-right: auto;
+    /* background: red; */
+  }
+  
+  
+  .SB-btn.SB-recent-btn svg {
+    width: 25px;
+    height: 24px;
+  }
+  
+  .SB-settings-svg {
+    margin: auto auto 0;
+    /* width: 30px; */
+  
+  }
+  
+  .strip {
+    height: 100%;
+    width: 4px;
+    background-color: #2ecc71;
+  }
+  
+  .downloading-case{
+    padding-left: 5px;
+    margin-right: 1px;
+    padding-bottom: 5px;
+    display: none;
+    /* background-color: rgba(90, 88, 88, 0.233); */
+    /* border: 1px solid grey; */
+  }
+  .DC-header{
+    display: flex;
+    background: #1a1a1a;
+    height: 37px;
+    align-items: center;
+    padding-left: 20px;
+  }
+  .DC-header button{
+    margin: 0 10px 0 auto;
+    width: 25.594px;
+    height: 26px;
+    border-radius: 50%;
+    /* border: 1px solid grey !important; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .DC-header button svg{
+    width: 14px;
+    height: 14px;
+    transform: rotate(90deg);
+  } 
+  .downloading-items{
+    
+    /* height: 300px; */
+    overflow: hidden scroll;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: rgb(40 40 40);
+    padding-left: 2px;
+  }
+  .SB-btn{
+    /* display: none; */
+  }
+  .downloading-items::-webkit-scrollbar{
+    width: 7px;
+    background-color: #34343463;
+  }
+  .download-item{
+    display: flex;
+    align-items: center;
+    background-color: rgb(175 175 175 / 8%);
+    /* border: 1px solid grey; */
+    /* justify-content: center; */
+    gap: 5px;
+    padding: 5px 4px;
+    font-size: 13px;
+    height: 60px;
+    height: 60px;
+    border-radius: 5px;
+  }
+  .DI-second{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .download-item .img-case{
+    height: 40px;
+    width:  45px;
+    background-color: #2ecc71;
+  }
+  .download-item .progess-case{
+    width: 100%;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .download-item .progess-case progress{
+    width: calc(100% - 25px); /*Button at the side*/
+  }
+  .download-item button{
+    /* background-color: rebeccapurple; */
+    display: flex;
+  
+    /* height: 30px; */
+    width: 22px;
+    height:22px;
+    border-radius: 50%;
+  }
+  .download-item button svg{
+    width:  13px;
+    height: 13px;
+    margin: auto;
+  }
