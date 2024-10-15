@@ -409,6 +409,6 @@ app.whenReady().then(()=>{
             return res
         }
         })
-    ipcMain.handle('getSettingsData',async ()=> savedSettings.getData('search_settings'))
-    ipcMain.handle('setSettingsData',async ()=> savedSettings.setData('search_settings'))
+    ipcMain.handle('getSettingsData',async () => savedSettings.getData('search_settings'))//arg 
+    ipcMain.handle('setSettingsData',async (event,data) => savedSettings.setData('search_settings',data))
 })

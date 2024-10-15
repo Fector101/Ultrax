@@ -86,19 +86,6 @@ function WelcomeScreen(total__){//total__ is to set total to 100 when process lo
     )
 }
 let g=undefined
-function AddFilter_btn({opt_name, show_btn, adv=false}){
-    // console.log({opt_name, show_btn, adv})
-    return(
-        // <button className={'round-btn '+btn_classes.join(' ')}>
-        <button className={"filter" + (adv?' adv':'') + (show_btn?'':' hide')}>
-        <p>{opt_name}</p>
-        <svg className='remove'xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z" /></svg>
-        <svg className='add' viewBox="0 0 45.402 45.402">
-            <path d="M41.267,18.557H26.832V4.134C26.832,1.851,24.99,0,22.707,0c-2.283,0-4.124,1.851-4.124,4.135v14.432H4.141 c-2.283,0-4.139,1.851-4.138,4.135c-0.001,1.141,0.46,2.187,1.207,2.934c0.748,0.749,1.78,1.222,2.92,1.222h14.453V41.27 c0,1.142,0.453,2.176,1.201,2.922c0.748,0.748,1.777,1.211,2.919,1.211c2.282,0,4.129-1.851,4.129-4.133V26.857h14.435 c2.283,0,4.134-1.867,4.133-4.15C45.399,20.425,43.548,18.557,41.267,18.557z"/>
-        </svg>
-    </button>
-    )
-}
 export default function App(){
     // class searchSettngs{
     //     spelling_accuracy= true
@@ -116,15 +103,7 @@ export default function App(){
     //     }
     // }
     // let [app,setApp]=React.useState(<><Titlebar/><WelcomeScreen/></>)
-    const DEFAULT_SEARCH_SETTINGS={
-        spelling_accuracy: true,
-        adv_opt_visible:false,
-        used_basic_opts:['Song Title','Artist'],
-        un_used_basic_opts:['Album','Length'],
-        used_adv_opts:[],
-        un_used_adv_opts:[],
-        confirm:true,
-    }
+
     // let [allFolders_data__,setAllFolders_data]=React.useState({})
     let [small_data,setSmallData]=React.useState([]) //['data for choosen folders',['data for folders minitab',obj_4_folders]]
     let [data_big,setdata]=React.useState([]) //['data for choosen folders',['data for folders minitab',obj_4_folders]]
@@ -139,7 +118,8 @@ export default function App(){
     let [obj_for_albums_tabs,setObj_4_albumsTabs]=React.useState({})
     let [display_setting,setDisplaySetting]=React.useState('flex')
 
-    let [search_settings, setSearchSettings] = React.useState(DEFAULT_SEARCH_SETTINGS)
+
+
     React.useEffect(function(){
         if(document.querySelector('.BIGBAR').dataset.frm_btn !== 'true' ){
         // if((!screen.includes('btn') && screen !== 'first')|| (screen === 'first' && (!a_miniTab_2_show.includes('btn')))){
@@ -168,12 +148,12 @@ export default function App(){
   
 
     React.useEffect(function(){
-        window.addEventListener('keyup',function(e){
-            // console.log(e)
+        function refresh(e){
             if(e.key==='F2'){
                 bridge.refresh()
             }
-        })
+        }
+        window.addEventListener('keyup',refresh)
 
         console.log('getting data....')
         // createPages('get_all').then(res=>{//get_all
@@ -244,7 +224,7 @@ export default function App(){
         // return
         bridge.isthere_saved_folders().then(bool__=>{
             if(bool__){
-                createPages('saved_folders').then(res=>{//get_all
+                createPages('saved_folders').then( async res=>{//get_all
                     if(!res){
                         return
                         // send app nofitication "No folder choosen"
@@ -301,176 +281,22 @@ export default function App(){
                     setObj_4_albumsTabs(old=>({...old,...ALBUMS_OBJ}))
                     setObj_4_foldersTabs(old=>({...old,...FOLDERS_OBJ}))
                     setSmallData([ALL_SONGS_LIST, ALL_FOLDERS_LIST])
-                    setSearchSettings(old=>({...old, used_adv_opts:Array.from(new Set([...res.formats, ...old.used_adv_opts]))}))
+                    
+                    const old_search_settings = await bridge.getSettingsData()
+                    await bridge.setSettingsData(
+                        {...old_search_settings, used_adv_opts:Array.from(new Set([...res.formats, ...old_search_settings.used_adv_opts]))},'user'
+                    )
+                    // setSearchSettings(old=>({...old, used_adv_opts:Array.from(new Set([...res.formats, ...old.used_adv_opts]))}))
                     setValue(true)
                     // setAllSongs(ALL_SONGS_LIST)
                 })
             }
         })
+        return ()=>window.removeEventListener('keyup',refresh)
         
     },[])
     // welcome()
-    let [formValues, setFormValues]= React.useState({
-        spelling_name:true
-        // password:'',
-        // "confirm-password":'',
-        // check:true,
-    })   
-    function formOnChange(element){
-        // console.log(MY_LOCAL_VARIABLES.list_for_search)
-          setFormValues(
-              function (oldObject){
-                const {name,value,type,checked}=element.target
-                if(name === 'spelling_name'){
-                    console.log('buyy')
-                    setSearchSettings(old=>({...old, 'spelling_accuracy':!old.spelling_accuracy}))
-                }
-                return {
-                        ...oldObject,
-                        [name]: type==='checkbox'?checked:value
-                      }
-              }
-            )
-    }
-    React.useEffect(function(){
-        setSearchSettings(old=>({...old,confirm:false}))
-        
-    },[search_settings.spelling_accuracy])
-    function toggleSearch_AdvOpts(){
-        const all_adv_btns=()=>Array.from(document.querySelectorAll('.filter-box button.filter.adv'))
-        // Animation Section For Advanced Options Buttons
-        // console.log(a_btn_ani)
-        // /**
-        //  *  @param {Element} btn
-        //  */
-        // let i=undefined
-        // function foreach_btn_ani(btn,show){
-        //     const ms=0
-        //     let properties={
-        //         duration: ms*1000,
-        //         easing: 'ease-in-out',
-        //         iterations: 1,
-        //         fill: 'forwards'
-                
-        //     }
-        //     const change = show?[
-        //                             { width: 0, border:'0',height:'0',padding:'0' },
-        //                             { width: 'inherit', border:'1px solid grey',height:'25px',padding:'0 7px'}
-        //                         ]
-        //                         :[
-        //                             { width: 'inherit', border:'1px solid grey',height:'25px',padding:'0 7px'},
-        //                             { width: 0, border:'0',height:'0',padding:'0' }
-        //                         ]
-        //     const a_btn_ani=btn.animate(change,properties)
-        //     a_btn_ani.onfinish=function(){
-        //         i = show?i+1:i-1    // For a cool backwards animation when closing
-        //         if( (show && btn !== all_adv_btns.at(-1)) || (show===false && btn !== all_adv_btns.at(0))){
-                    
-        //             foreach_btn_ani(all_adv_btns[i],show)
-        //         }else{
-        //             a_btn_ani=undefined
-        //         }
-        //     }
-        // }
-
-        
-        if(search_settings.adv_opt_visible === true){
-            if(document.querySelector('.search-settings .unused-filters button.show-more-filters').innerText==='Revert Advanced options'){
-            //     console.log('buzz')
-            //     // console.log(old)
-                // const un_used_adv_filters=document.querySelectorAll('.search-settings .unused-filters button.filter.adv')
-                // un_used_adv_filters.forEach(each_btn=>{
-                //     const target=document.querySelector('.search-settings .using-filters .filter.adv')||document.querySelector('.search-settings .using-filters')
-                //     target.insertAdjacentElement(target.classList.contains('using-filters')?'beforeend':'beforebegin',each_btn)
-                // })
-                // all_adv_btns().forEach(each_btn=>each_btn.classList.remove('hide'))
-                document.querySelector('.search-settings .unused-filters button.show-more-filters').innerText='Hide Advanced options'
-                // return old // adv buttons still visible so return 'old value' or {...old,adv_opt_visible: true}
-                setSearchSettings(old=>({...old,
-                                        used_adv_opts: old.used_adv_opts.concat(old.un_used_adv_opts),
-                                        un_used_adv_opts:[], adv_opt_visible: true
-                                    })
-                                )
-
-
-            }else{
-                // all_adv_btns().forEach(each_btn=>each_btn.classList.add('hide'))
-                // setSearchSettings(old=>({...old,found_formats:formats,used_adv_opts:[...basic_search_opts,...formats],un_used_adv_opts:ununsed_basic_search_opts}))
-                setSearchSettings(old=>({...old,adv_opt_visible: false}))
-
-            }
-        }
-        else{         
-            // all_adv_btns().forEach(each_btn=>each_btn.classList.remove('hide'))
-            setSearchSettings(old=>({...old,adv_opt_visible: true}))
-        }
-
-    }
-    function checkIfUsingAdvFilter(){
-        if(search_settings.un_used_adv_opts.length>0){
-            return 'Revert Advanced options'
-        }else if(search_settings.adv_opt_visible){
-            return 'Hide Advanced options'
-        }else{
-            return "Show Advanced options"
-        }
-    }
-    function removeSearchFilter(e){
-        const filter_btn = e.target.closest('button.filter')
-        if(!filter_btn) return
-        setSearchSettings(old=>({...old,confirm:false}))
-        function check_opts(list,used_opts_key,un_used_opts_key){
-            let opts=list
-            for(let i =0;i<opts.length;i++){
-                const each=opts[i]
-                if(each === filter_btn.innerText){
-                    const option = opts.splice(i,1)
-                    setSearchSettings(old=>({...old,
-                                                [used_opts_key]:opts,
-                                                [un_used_opts_key]:[...old[un_used_opts_key],...option]
-                                            })
-                                    )
-                    break
-                }
-            }
-        }
-        check_opts(search_settings.used_basic_opts,'used_basic_opts','un_used_basic_opts')
-        search_settings.adv_opt_visible && check_opts(search_settings.used_adv_opts,'used_adv_opts','un_used_adv_opts')
-        // checkIfUsingAdvFilter()
-    }
-    function addSearchFilter(e){
-        const filter_btn = e.target.closest('button.filter')
-        if(!filter_btn) return
-        setSearchSettings(old=>({...old,confirm:false}))
-        function check_opts(list,used_opts_key,un_used_opts_key){
-            let opts=list
-            for(let i =0;i<opts.length;i++){
-                const each=opts[i]
-                if(each === filter_btn.innerText){
-                    const option = opts.splice(i,1)
-                    setSearchSettings(old=>({...old,
-                                            [un_used_opts_key]:opts,
-                                            [used_opts_key]:[...old[used_opts_key],...option]
-                                        })
-                                    )
-                    break
-                }
-            }
-        }
-        check_opts(search_settings.un_used_basic_opts,'used_basic_opts','un_used_basic_opts')
-        search_settings.adv_opt_visible && check_opts(search_settings.un_used_adv_opts,'used_adv_opts','un_used_adv_opts')
-        // checkIfUsingAdvFilter()
-    }
     
-    function checkSettings(){
-        // console.log(search_settings)
-        if(search_settings.confirm){
-            setDisplaySetting(false)
-        }else{
-            setAskToDiscard(true)
-            return false // this makes search settting not close
-        }
-    }
     return (
         <>
             {/* {app} */}

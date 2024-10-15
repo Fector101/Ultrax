@@ -23,8 +23,8 @@ contextBridge.exposeInMainWorld('bridge',{
 
     getAll:(arg)=>ipcRenderer.invoke('Get_Audios',arg),
     isthere_saved_folders:()=>ipcRenderer.invoke('g_s_f'),
-    getSettingsData:()=>ipcRenderer.invoke('getSettingsData'),
-    setSettingsData:()=>ipcRenderer.invoke('setSettingsData'),
+    getSettingsData: () =>ipcRenderer.invoke('getSettingsData'),
+    setSettingsData: data =>ipcRenderer.invoke('setSettingsData',data),
 })
 ipcRenderer.on('isMax',(event,isMax)=>{
     try{

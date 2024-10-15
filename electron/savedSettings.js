@@ -33,15 +33,17 @@ class UserSettings{
             if(['playlists', 'search_settings'].includes(key)){
                 if(key==='search_settings'){
                     // data={"used filters":[], "un_used filters":[]}
-                    data={
-                        spelling_accuracy: true,
-                        adv_opt_visible:false,
-                        used_basic_opts:['Song Title','Artist'],
-                        un_used_basic_opts: ["Album", "Length"],
-                        used_adv_opts:[],
-                        un_used_adv_opts:[],
-                        confirm:true,
+                    const search_settings_structure={
+                        "spelling_accuracy": true,
+                        "adv_opt_visible":false,
+                        "used_basic_opts":["Song Title","Artist"],
+                        "un_used_basic_opts": ["Album", "Length"],
+                        "used_adv_opts":[],
+                        "un_used_adv_opts":[],
+                        "confirm":true,
                     }
+                         
+                    data=search_settings_structure
                 }else{
                     data={}
                 }
@@ -135,11 +137,25 @@ class UserSettings{
             return 'successfull'
         }
     }
-    getData(key=''){
-        return this.storage.get(key)
+    /**
+     * @param {string|string[]} key 
+     * @returns Object || String || Array
+     */
+    getData(key){
+        if(Array.isArray(key)){ // for object with object inside
+            const data =  this.storage.get(key[0])
+            return data[1]
+        }else{
+            return this.storage.get(key)
+        }
     }
     setData(key,value){
-        this.storage.set(key,value)
+        if(Array.isArray(key)){ // for object with object inside
+            const data =  this.storage.get(key[0])
+            return data[1]
+        }else{
+            this.storage.set(key,value)
+        }
     }
     get_coords(){
         const pos=this.getData('win-pos')
@@ -157,4 +173,7 @@ module.exports=UserSettings
 // }
 // module.exports={
 //     UserSettings
-// }
+// }if(Array.isArray(key)){ // for object with object inside
+
+
+// this.storage.set(key,value)
